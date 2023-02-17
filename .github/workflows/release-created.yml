@@ -1,0 +1,16 @@
+name: Upload release artifacts
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  release-created:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log Release Tag
+        env:
+          RELEASE_TAG: ${{ github.ref }}
+        run: |
+          echo $RELEASE_TAG
