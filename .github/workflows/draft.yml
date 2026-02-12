@@ -12,6 +12,8 @@ permissions:
   contents: read
 jobs:
   UpdateReleaseDraft:
+    needs:
+      - PublishBetaRelease
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -24,8 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PublishBetaRelease:
-    needs:
-      - UpdateReleaseDraft
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: github.event_name == 'push'
