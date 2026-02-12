@@ -1,0 +1,14 @@
+name: Publish Release
+"on":
+  release:
+    types:
+      - published
+jobs:
+  PublishPackages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Test
+        run: echo test
