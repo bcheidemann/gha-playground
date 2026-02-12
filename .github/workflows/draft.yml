@@ -24,7 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PublishBetaRelease:
-    depends-on: UpdateReleaseDraft
+    needs:
+      - UpdateReleaseDraft
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: github.event_name == 'push'
