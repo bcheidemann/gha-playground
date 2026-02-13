@@ -1,4 +1,4 @@
-name: Draft Release
+name: Release
 "on":
   push:
     branches:
@@ -11,17 +11,29 @@ name: Draft Release
 permissions:
   contents: read
 jobs:
+  UpdateReleaseDraft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Draft next release
+        uses: release-drafter/release-drafter@v5
+        with:
+          commitish: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PublishBetaRelease:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     if: github.event_name == 'push'
     permissions:
       contents: write
-    outputs:
-      tag_name: ${{ steps.create_release.outputs.tag_name }}
+    # Added for reproducability - ideally the jobs would run concurrently but this leads to unpredictable behavior depending on the order in which the finish.
+    needs:
+      - UpdateReleaseDraft
     steps:
-      - id: create_release
-        name: Publish beta release
+      - name: Publish beta release
         uses: release-drafter/release-drafter@v5
         with:
           commitish: main
@@ -30,15 +42,3 @@ jobs:
           publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PublishBetaPackages:
-    uses: ./.github/workflows/publish.yml
-    if: github.event_name == 'push'
-    permissions:
-      contents: write
-    with:
-      tag_name: ${{ needs.PublishBetaRelease.outputs.tag_name }}
-      target_commitish: ${{ github.sha }}
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    needs:
-      - PublishBetaRelease
