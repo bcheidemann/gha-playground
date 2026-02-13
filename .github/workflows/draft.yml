@@ -33,6 +33,8 @@ jobs:
   PublishBetaPackages:
     uses: ./.github/workflows/publish.yml
     if: github.event_name == 'push'
+    permissions:
+      contents: write
     with:
       tag_name: ${{ needs.PublishBetaRelease.outputs.tag_name }}
       target_commitish: ${{ github.sha }}
