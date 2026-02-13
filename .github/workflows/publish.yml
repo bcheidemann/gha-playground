@@ -3,6 +3,7 @@ name: Publish Release
   release:
     types:
       - published
+      - prereleased
 jobs:
   PublishPackages:
     runs-on: ubuntu-latest
