@@ -40,5 +40,6 @@ jobs:
           prerelease: true
           prerelease-identifier: beta
           publish: true
+          include-pre-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
