@@ -1,3 +1,3 @@
-_extends: release-drafter.yml
+_extends: bcheidemann/gha-playground:.github/release-drafter.yml
 
 include-pre-releases: true # consider only prereleases when looking for previous releases
