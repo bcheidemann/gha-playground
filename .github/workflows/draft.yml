@@ -16,8 +16,6 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write
-    needs:
-      - PublishBetaRelease
     steps:
       - name: Draft next release
         uses: release-drafter/release-drafter@v6
