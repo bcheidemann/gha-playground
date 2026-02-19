@@ -21,9 +21,9 @@ jobs:
         uses: release-drafter/release-drafter@v6
         with:
           commitish: main
-          prerelease: false # the default
-          include-pre-releases: false # the default
-          publish: false # the default
+          # prerelease: false # the default
+          # include-pre-releases: false # the default
+          # publish: false # the default
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PublishBetaRelease:
