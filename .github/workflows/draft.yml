@@ -16,6 +16,8 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: write
+    needs:
+      - PublishBetaRelease
     steps:
       - name: Draft next release
         uses: release-drafter/release-drafter@v6
@@ -32,9 +34,6 @@ jobs:
     if: github.event_name == 'push'
     permissions:
       contents: write
-    # Added for reproducability - ideally the jobs would run concurrently but this leads to unpredictable behavior depending on the order in which the finish.
-    needs:
-      - UpdateReleaseDraft
     steps:
       - name: Publish beta release
         uses: release-drafter/release-drafter@v6
